@@ -1,7 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtSigner } from 'src/jwt/jwt-signer.service';
-import { Token } from 'src/token/token.entity';
 import { Repository } from 'typeorm';
 import { SigninAccountResponseDto } from './dto/account-sign-res.dto';
 import { Account } from './entity/account.entity';
@@ -43,13 +42,13 @@ export class AccountService {
       });
     }
 
-    return { status: 200, message: 'success' };
+    return { status: 201, message: 'success' };
   }
 
   async login(userData: any) {
     const user = await this.accountRepository.findOne({
       where: { email: userData.email },
-      relations: ["token"]
+      relations: ['token'],
     });
 
     if (!user) {
@@ -71,7 +70,7 @@ export class AccountService {
     const token = await this.jwtSigner.sign(user.id);
     user.token.accessToken = token.accessToken;
     user.token.refreshToken = token.refreshToken;
-    await this.accountRepository.save(user)
+    await this.accountRepository.save(user);
 
     return new SigninAccountResponseDto(user.token);
   }

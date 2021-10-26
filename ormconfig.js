@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config(); // Loads environment variables from a .env file into process.env
 
-console.log(`Current NODE_ENV: ${process.env.NODE_ENV}`);
 const development = {
   type: 'mysql',
   host: process.env.MYSQL_HOST,
@@ -20,6 +19,5 @@ const development = {
   },
   logging: true,
 };
-
 
 module.exports = development;

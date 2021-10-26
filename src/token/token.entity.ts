@@ -1,5 +1,5 @@
-import { Account } from 'src/account/entity/account.entity';
-import { Core } from 'src/entity-core/core.entity';
+import { Account } from '../account/entity/account.entity';
+import { Core } from '../entity-core/core.entity'
 import { OneToOne } from 'typeorm';
 import { Column } from 'typeorm/decorator/columns/Column';
 import { Entity } from 'typeorm/decorator/entity/Entity';
