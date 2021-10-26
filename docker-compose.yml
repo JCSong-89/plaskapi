@@ -7,6 +7,8 @@ services:
     restart: always
     ports:
       - 11510:3306
+    networks:
+      - dev-network      
     environment:
       TZ: Asia/Seoul
       MYSQL_ROOT_PASSWORD: password
@@ -18,9 +20,12 @@ services:
       - --collation-server=utf8mb4_unicode_ci
       - --skip-character-set-client-handshake
     volumes:
-      - register-mysql:/var/lib/mysql
+      - plask-mysql:/var/lib/mysql
 
 volumes:
   plask-mysql:
   
-exp:
+networks:
+  dev-network:
+    driver: bridge
+

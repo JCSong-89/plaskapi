@@ -1,14 +1,13 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Core } from 'src/entity-core/core.entity';
+import { Token } from 'src/token/token.entity';
 
 export enum UserType {
   ADMIN = 'admin',
   USER = 'user',
 }
-
-
 @Entity({ name: 'accounts' })
 export class Account extends Core {
   @Column({
@@ -37,6 +36,9 @@ export class Account extends Core {
   })
   type: UserType;
 
+  @OneToOne(() => Token, token => token.account) // specify inverse side as a second parameter
+  @JoinColumn()
+  token: Token;
 
   @BeforeInsert()
   @BeforeUpdate()
